@@ -30,14 +30,14 @@ Sex that is not equal to 1 or 2 is removed. The resulting two data frames (sampl
 ## Instructions
 
 ## 1. Training
-Rscript train_brain_age.R
+Rscript training_validation.R
 
 In this script, Sample1.Rda is loaded as the training sample following data preparation steps outlined above.
 A training/validation split at 80:20 is made (meaning the overarching sample split for training/validation/testing is 40/10/50 percent).
 
 
 ## 2. Test / predict
-Rscript test_brain_age.R
+Rscript predict_test_set.R
 
 In this script, Sample2.Rda (hold-out sample) is loaded as the test set.
 Age-bias correction to reduce regression to the mean is carried out using correction procedures outlined in de Lange & Cole (https://doi.org/10.1016/j.nicl.2020.102229).
