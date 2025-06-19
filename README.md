@@ -1,5 +1,7 @@
 # brain-age-prediction
 
+## Background
+
 This repo contains two scripts:
 
 | Script | Description |
@@ -11,13 +13,10 @@ These scripts are adapted from code used for brain age testing and training used
 Beck et al. (https://doi.org/10.1016/j.biopsych.2024.07.019) bar slight changes in the following:
 
 - 5-fold x 2-repeat cross validation instead of 10-fold to cut run time 80% and using parallel back-end so it utilizes all cores.
-- Leak-free preprocessing – NZV and normalization are now estimated inside each resample \
-so hyper-parameter tuning sees slightly “truer” error and picks better settings.
-- Larger effective training set per tree – because we dropped repeated hand-baking, \
-more features survived NZV in some folds, giving the booster a richer signal.
+- Leak-free preprocessing – NZV and normalization are now estimated inside each resample so hyper-parameter tuning sees slightly “truer” error and picks better settings.
+- Larger effective training set per tree – because we dropped repeated hand-baking, more features survived NZV in some folds, giving the booster a richer signal.
 - Identifiers (src_subject_id, eventname) are kept but given role = "id" and ignored by XGBoost to prevent over-fit to person or visit labels.
-- Joint tuning of trees and learn_rate – the model can trade depth for shrinkage; \
-final parameters usually give a marginal accuracy gain.
+- Joint tuning of trees and learn_rate – the model can trade depth for shrinkage; final parameters usually give a marginal accuracy gain.
 
 ## Data preparation
 
@@ -29,14 +28,14 @@ Sex that is not equal to 1 or 2 is removed. The resulting two data frames (sampl
 
 ## Instructions
 
-## 1. Training
+### 1. Training
 Rscript training_validation.R
 
 In this script, Sample1.Rda is loaded as the training sample following data preparation steps outlined above.
 A training/validation split at 80:20 is made (meaning the overarching sample split for training/validation/testing is 40/10/50 percent).
 
 
-## 2. Test / predict
+### 2. Test / predict
 Rscript predict_test_set.R
 
 In this script, Sample2.Rda (hold-out sample) is loaded as the test set.
@@ -45,16 +44,12 @@ Age-bias correction to reduce regression to the mean is carried out using correc
 
 ## Notes
 
-The scripts above use T1-weighted imaging data but scripts are also available for dMRI, rs-fMRI, and a multi-modal model.
-
+The scripts above use T1-weighted imaging data but scripts are also available for dMRI, rs-fMRI, and a multi-modal model. The figure below shows performance of each model using the code in this repository.
 ![Brain-age-performance](age_pred_all_models.png)
-
-Figure showing performance of the models using the code in this repository.
 
 
 ### Contact
 If you have any questions about the code or wish to collaborate, please contact me at [dani.beck@psykologi.uio.no](mailto:dani.beck@psykologi.uio)
-
 
 
 
