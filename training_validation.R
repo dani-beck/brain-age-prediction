@@ -7,7 +7,7 @@ library(doParallel)
 library(tidymodels)
 library(xgboost)
 
-setwd("/tsd/p33/scratch/no-backup/users/daniabe/3peat_brainage/t1_brainAGE")
+setwd("/path/to/your/directory/")
 
 # load data 
 load("Sample1.Rda")
@@ -38,7 +38,7 @@ rm(sample_1, train_ids, unique_ids)
 # ──────────────────────────────────────────────────────────────────────
 
 brainage_recipe <- recipe(interview_age ~ ., data = df_train) %>%
-  # Keep identifiers for bookkeeping but exclude from predictors
+  # Keep identifiers for book-keeping but exclude from predictors
   update_role(src_subject_id, eventname, new_role = "id") %>%
   # Drop sex so the model relies purely on brain features
   step_rm(sex) %>%
@@ -88,7 +88,7 @@ xgb_wf <- workflow() %>%
 
 
 # ──────────────────────────────────────────────────────────────────────
-# 6.  Cross-validation split (5-fold × 2 repeats) and parallel backend
+# 6.  Cross-validation split (5-fold × 2 repeats) and parallel back-end
 # ──────────────────────────────────────────────────────────────────────
 
 set.seed(42)
@@ -103,7 +103,7 @@ doParallel::registerDoParallel()
 
 
 # ───────────────────────────────────────────────────────────────────────────
-# 7. Hyper-parameter tuning - # this step runs the training and lasts for days 
+# 7. Hyper-parameter tuning  
 # ───────────────────────────────────────────────────────────────────────────
 
 set.seed(42)       # reproducible Latin-hypercube evaluation order
@@ -120,7 +120,7 @@ xgb_tuned <- tune_grid(
 # 8.  Post-tuning workflow and select best parameters
 # ───────────────────────────────────────────────────────────────────────────
 
-# quick leaderboard
+# quick leader board
 show_best(xgb_tuned, metric = "mae", n = 10)
 
 # select parsimonious params within one SE of best model

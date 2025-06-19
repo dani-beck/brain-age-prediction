@@ -6,7 +6,7 @@ library(tidymodels)
 library(xgboost)
 
 # set wd
-setwd("/tsd/p33/scratch/no-backup/users/daniabe/3peat_brainage/t1_brainAGE")
+setwd("/path/to/your/directory/")
 
 # ───────────────────────────────────────────────────────────────────────────
 # 2.  Load fitted artefacts produced by the training script
@@ -102,18 +102,4 @@ ggplot(brain_age_pred, aes(truth, corrected_pred)) +
   geom_point(alpha = .1) +
   geom_abline(lty = 2) +
   labs(title = "After bias correction")
-
-# the rmse and mae slightly improved (0.03) from the previous model used in the ELA paper
-# Leak-free preprocessing – NZV and normalisation are now estimated inside each resample, 
-# so hyper-parameter tuning sees slightly “truer” error and picks better settings.
-# 
-# Joint tuning of trees and learn_rate – the model can trade depth for shrinkage; 
-# final parameters usually give a marginal accuracy gain.
-# 
-# Larger effective training set per tree – because we dropped repeated hand-baking, 
-# more features survived NZV in some folds, giving the booster a richer signal.
-# 
-# A ~0.03 y drop in both RMSE and MAE is typical when you remove information leakage 
-# and fine-tune learning-rate/trees together—small but real.
-
 
